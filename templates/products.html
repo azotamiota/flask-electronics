@@ -17,9 +17,9 @@
     <tr>     
     <th scope="row">{{product.id}}</th>
       <td>{{product.type}}</td>
-      <td><a href='{{ url_for("one_product", id=product.id) }}'>{{product['brand-model']}}</a></td>
+      <td><a href='{{ url_for("one_product", id=product.id) }}'>{{ product['brand-model'] }}</a></td>
       <td>{{product.colour}}</td>
-      <td><button class="btn btn-info">Modify</button></td>
+      <td><a href='{{ url_for("modify_product", id=product.id) }}'><button class="btn btn-info">Modify</button></a></td>
       <td><a href='{{ url_for("delete", id=product.id) }}'><button class="btn btn-danger">Delete</button></a></td>
     </tr>
     {% endfor %}

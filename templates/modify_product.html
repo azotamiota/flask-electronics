@@ -4,17 +4,21 @@
 <form method="POST" onsubmit="">
   <div class="form-group">
     <label for="type-input">Type</label>
-    <input type="text" class="form-control" name="type-input" placeholder="e.g. Laptop, Phone, Camera ...">
+    <input type="text" class="form-control" name="type-input" value="{{ type }}" >
     <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
   </div>
   <div class="form-group">
     <label for="brand-model">Brand / model</label>
-    <input type="text" class="form-control" name="brand-model" placeholder="e.g. IPhone 8, HP 234, Samsung 7KL">
+    <input type="text" class="form-control" name="brand-model" value="{{ brand }}">
   </div>
   <div class="form-group">
     <label for="colour">Colour</label>
-    <input type="text" class="form-control" name="colour" placeholder="e.g. black, red">
+    <input type="text" class="form-control" name="colour" value="{{ colour }}">
   </div>
-  <button type="submit" class="btn btn-primary">Add product</button>
+  <div class="form-group">
+    <label for="colour">Image link</label>
+    <input type="text" class="form-control" name="image" value="{{ image }}">
+  </div>
+  <button type="submit" class="btn btn-primary">Modify product</button>
 </form>
 {% endblock %}

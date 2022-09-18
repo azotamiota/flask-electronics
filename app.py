@@ -54,8 +54,23 @@ def add_product():
 
 @app.route('/modify/<int:id>', methods=['GET', 'POST'])
 def modify_product(id):
+    global electronics
+    matching_product = [product for product in electronics if product['id'] == id]
     if request.method == 'GET':
-        return render_template('modify_product.html', title='Modify product')
+        print(f'matching product: {matching_product}')
+        return render_template('modify_product.html', title='Modify product', id=matching_product[0]['id'], type=matching_product[0]['type'], brand=matching_product[0]['brand-model'], colour=matching_product[0]['colour'], image=matching_product[0]['image'])
+    else:
+        type = request.form['type-input']
+        brand = request.form['brand-model']
+        colour = request.form['colour']
+        image = request.form['image']
+        new_electronics = [product for product in electronics if product['id'] != id]
+        electronics = new_electronics
+        electronics.append({
+            'id': id, 'type': type, 'brand-model': brand, 'colour': colour, 'image': image
+        })
+        return redirect(url_for('products'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)
