@@ -1,5 +1,4 @@
-from crypt import methods
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request, redirect
 
 app = Flask(__name__)
 
@@ -13,13 +12,17 @@ electronics = [
 @app.route('/')
 @app.route('/home')
 def home():
-    return render_template('home.html')
+    return render_template('home.html', title='Home')
 
 @app.route('/products')
 def products():
     return render_template('products.html', electronics=electronics, title='Products')
+    # elif methods == 'DELETE':
+    #     remnant_products = [product for product in electronics if product['id'] == id]
+    #     return render_template('one_product.html', product=matching_product[0], title=matching_product[0]['brand-model'], image=matching_product[0]['image'])
+    
 
-@app.route('/products/<int:id>/', methods=['GET', 'DELETE', 'PATCH'])
+@app.route('/products/<int:id>/')
 def one_product(id):
     matching_product = [product for product in electronics if product['id'] == id ]
     return render_template('one_product.html', product=matching_product[0], title=matching_product[0]['brand-model'], image=matching_product[0]['image'])
@@ -27,6 +30,32 @@ def one_product(id):
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+@app.route('/delete/<int:id>')
+def delete(id):
+    global electronics
+    new_electronics = [product for product in electronics if product['id'] != id]
+    electronics = new_electronics
+    return render_template('products.html', electronics=electronics, title='Products')
+
+@app.route('/add', methods=['GET', 'POST'])
+def add_product():
+    if request.method == 'GET':
+        return render_template('add_product.html', title='Add product')
+    else:
+        id = len(electronics) + 1
+        type = request.form['type-input']
+        brand = request.form['brand-model']
+        colour = request.form['colour']
+        electronics.append({
+            'id': id, 'type': type, 'brand-model': brand, 'colour': colour, 'image': f'https://unsplash.com/s/photos/{brand}'
+        })
+        return redirect(url_for('products'))
+
+@app.route('/modify/<int:id>', methods=['GET', 'POST'])
+def modify_product(id):
+    if request.method == 'GET':
+        return render_template('modify_product.html', title='Modify product')
 
 if __name__ == '__main__':
     app.run(debug=True)

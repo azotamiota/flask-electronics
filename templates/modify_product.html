@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<form method="POST" onsubmit="">
+  <div class="form-group">
+    <label for="type-input">Type</label>
+    <input type="text" class="form-control" name="type-input" placeholder="e.g. Laptop, Phone, Camera ...">
+    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+  </div>
+  <div class="form-group">
+    <label for="brand-model">Brand / model</label>
+    <input type="text" class="form-control" name="brand-model" placeholder="e.g. IPhone 8, HP 234, Samsung 7KL">
+  </div>
+  <div class="form-group">
+    <label for="colour">Colour</label>
+    <input type="text" class="form-control" name="colour" placeholder="e.g. black, red">
+  </div>
+  <button type="submit" class="btn btn-primary">Add product</button>
+</form>
+{% endblock %}
